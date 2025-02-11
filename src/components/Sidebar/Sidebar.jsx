@@ -16,6 +16,8 @@ export default function Sidebar() {
     const { token, setToken } = useContext(authenticationContext)
     const { setShowModal, setEditingNote } = useContext(modalContext)
     const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode'));
+    const [showAddOptions, setShowAddOptions] = useState(false);
+
     const navigate = useNavigate()
 
 
@@ -39,7 +41,7 @@ export default function Sidebar() {
                 navigate("/login")
             }
         });
-       
+
     }
 
 
@@ -74,19 +76,27 @@ export default function Sidebar() {
                     <nav className="mt-4 space-y-4 flex flex-col justify-around">
                         {token ?
                             <>
-                                <div className="group relative">
-                                    <a onClick={() => { setEditingNote(null); setShowModal(true) }} className="block py-3 px-4 hover:bg-gray-300 dark:hover:bg-gray-700 text-center">
-                                        <FaCirclePlus className='text-2xl mx-auto group-hover:animate-wiggle' />
-                                        <span className="absolute z-50 left-full ml-2 top-1/2 -translate-y-1/2 bg-gray-300 dark:bg-gray-900 text-gray-900 dark:text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            Add New Note
-                                        </span>
-                                    </a>
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setShowAddOptions(!showAddOptions)}
+                                        className="rounded-xl mx-auto block mt-5 mb-2 text-center bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
+                                    >
+                                        <FaCirclePlus className={`text-3xl mx-auto transition-transform duration-300 ${showAddOptions ? 'rotate-45' : ''}`} />
+                                    </button>
+                                    <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showAddOptions ? 'max-h-40 scale-100 opacity-100' : 'max-h-0 scale-95 opacity-0'}`}>
+                                        <button
+                                            onClick={() => { setEditingNote(null); setShowModal(true); setShowAddOptions(false); }}
+                                            className="mt-2 text-xs font-light font-sans block px-1.5 mx-auto text-center bg-gray-600 text-white py-2 rounded-md hover:bg-gray-500 transition-all"
+                                        >
+                                            New Note
+                                        </button>
+                                    </div>
                                 </div>
                             </>
                             :
                             <>
                                 <div className="group relative">
-                                    <Link to={"/register"} className="block py-3 px-4 hover:bg-gray-300 dark:hover:bg-gray-700 text-center">
+                                    <Link to={"/register"} className="block py-3 px-4 w-full hover:bg-gray-300 dark:hover:bg-gray-700 text-center">
                                         <BsPersonFillAdd className='text-2xl mx-auto' />
                                         <span className="absolute z-50 left-full ml-2 top-1/2 -translate-y-1/2 bg-gray-300 dark:bg-gray-900 text-gray-900 dark:text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                             Register
@@ -94,7 +104,7 @@ export default function Sidebar() {
                                     </Link>
                                 </div>
                                 <div className="group relative">
-                                    <Link to={"/login"} className="block py-3 px-4 hover:bg-gray-300 dark:hover:bg-gray-700 text-center">
+                                    <Link to={"/login"} className="block py-3 px-4 w-full hover:bg-gray-300 dark:hover:bg-gray-700 text-center">
                                         <RiLoginCircleLine className='text-2xl mx-auto' />
                                         <span className="absolute z-50 left-full ml-2 top-1/2 -translate-y-1/2 bg-gray-300 dark:bg-gray-900 text-gray-900 dark:text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                             Login
@@ -107,7 +117,7 @@ export default function Sidebar() {
                 <div className="bottom-bar">
                     <div className="group relative">
                         {token && <>
-                            <button onClick={logoutUserFn} className="block py-3 px-7 mx-auto hover:bg-gray-300 dark:hover:bg-gray-700">
+                            <button onClick={logoutUserFn} className="block py-3 px-4 w-full mx-auto hover:bg-gray-300 dark:hover:bg-gray-700">
                                 <TbLogout2 className='text-2xl mx-auto' />
                                 <span className="absolute z-50 left-full ml-2 top-1/2 -translate-y-1/2 bg-gray-300 dark:bg-gray-900 text-gray-900 dark:text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                                     Logout

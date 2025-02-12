@@ -68,7 +68,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white h-screen fixed transition-all duration-300 border-r border-gray-300 dark:border-gray-700 -3xl bg-transparent ease-in-out flex flex-col justify-between">
+            <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white h-screen w-20 fixed transition-all duration-300 border-r border-gray-300 dark:border-gray-700 -3xl bg-transparent ease-in-out flex flex-col justify-between">
                 <div className="top-bar">
                     <div className="p-4 border-b border-gray-300 dark:border-gray-700">
                         <div className="text-center text-base font-bold">Docket</div>
